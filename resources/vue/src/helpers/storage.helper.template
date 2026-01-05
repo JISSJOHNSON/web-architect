@@ -1,0 +1,50 @@
+/**
+ * Storage Helper
+ * Standardized interface for browser storage and cookies
+ */
+
+export const StorageHelper = {
+  // LocalStorage
+  get(key) {
+    try {
+      const item = localStorage.getItem(key)
+      return item ? JSON.parse(item) : null
+    } catch (e) {
+      return null
+    }
+  },
+
+  set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value))
+      return true
+    } catch (e) {
+      return false
+    }
+  },
+
+  remove(key) {
+    localStorage.removeItem(key)
+  },
+
+  clear() {
+    localStorage.clear()
+  },
+
+  // Cookies
+  setCookie(name, value, days = 7) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString()
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`
+  },
+
+  getCookie(name) {
+    return document.cookie.split('; ').reduce((r, v) => {
+      const parts = v.split('=')
+      return parts[0] === name ? decodeURIComponent(parts[1]) : r
+    }, '')
+  },
+
+  deleteCookie(name) {
+    this.setCookie(name, '', -1)
+  }
+}

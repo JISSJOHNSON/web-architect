@@ -1,0 +1,44 @@
+import axios from 'axios'
+import { STORAGE_KEYS } from '@/constants'
+
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+// Request Interceptor
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem(STORAGE_KEYS.TOKEN)
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+// Response Interceptor
+apiClient.interceptors.response.use(
+  (response) => {
+    return response.data
+  },
+  (error) => {
+    const message = error.response?.data?.message || error.message || 'Something went wrong'
+    
+    if (error.response?.status === 401) {
+      // Handle unauthorized (e.g., logout or refresh token)
+      localStorage.removeItem(STORAGE_KEYS.TOKEN)
+      window.location.href = '/login'
+    }
+    
+    return Promise.reject({ ...error, message })
+  }
+)
+
+export default apiClient

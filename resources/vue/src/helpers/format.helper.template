@@ -1,0 +1,48 @@
+/**
+ * Format Helper
+ * Standardized interface for formatting dates, numbers, and strings
+ */
+
+{{DATE_IMPORT}}
+{{NUMBER_IMPORT}}
+
+export const FormatHelper = {
+  // Date Formatting
+  formatDate(date, pattern = 'MMM dd, yyyy') {
+    if (!date) return '-'
+    {{DATE_FORMAT_LOGIC}}
+  },
+
+  // Number Formatting
+  formatNumber(number, pattern = '0,0') {
+    if (number === null || number === undefined) return '-'
+    {{NUMBER_FORMAT_LOGIC}}
+  },
+
+  formatCurrency(number, currency = 'USD', locale = 'en-US') {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currency
+    }).format(number)
+  },
+
+  // String Formatting
+  truncate(str, length = 30) {
+    if (!str) return ''
+    return str.length > length ? str.substring(0, length) + '...' : str
+  },
+
+  capitalize(str) {
+    if (!str) return ''
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+  },
+
+  slugify(str) {
+    if (!str) return ''
+    return str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w ]+/g, '')
+      .replace(/ +/g, '-')
+  }
+}

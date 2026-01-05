@@ -1,0 +1,76 @@
+<script setup{{LANG}}>
+defineProps({
+  variant: {
+    type: String,
+    default: 'primary'
+  },
+  size: {
+    type: String,
+    default: 'md'
+  },
+  loading: Boolean,
+  disabled: Boolean
+})
+</script>
+
+<template>
+  <button 
+    class="base-btn"
+    :class="[variant, size, { loading }]"
+    :disabled="disabled || loading"
+  >
+    <span v-if="loading" class="spinner"></span>
+    <slot />
+  </button>
+</template>
+
+<style scoped>
+.base-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  gap: 0.5rem;
+}
+
+.primary {
+  background-color: var(--color-primary-500);
+  color: white;
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+}
+
+.md {
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+}
+
+.lg {
+  padding: 0.875rem 1.75rem;
+  font-size: 1.125rem;
+}
+
+.base-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: rotate 0.8s linear infinite;
+}
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+</style>

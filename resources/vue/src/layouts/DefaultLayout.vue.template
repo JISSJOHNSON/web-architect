@@ -1,0 +1,21 @@
+<script setup{{LANG}}>
+import Footer from '@/components/common/Footer.vue'
+</script>
+<template>
+  <div class="layout">
+    <header class="header">
+      <h1 class="title">{{PROJECT_NAME}}</h1>
+    </header>
+    <main class="main">
+      {{SLOT_OR_ROUTER}}
+    </main>
+    <Footer />
+  </div>
+</template>
+<style scoped>
+.layout { min-height: 100vh; display: flex; flex-direction: column; }
+.header { padding: 1rem; border-bottom: 1px solid #eee; }
+.title { font-weight: bold; font-size: 1.25rem; }
+.main { flex-grow: 1; }
+{{TAILWIND_STYLES}}
+</style>

@@ -1,0 +1,8 @@
+<template>
+  <footer class="footer">
+    &copy; {{ YEAR }} {{PROJECT_NAME}}. All rights reserved.
+  </footer>
+</template>
+<style scoped>
+.footer { padding: 1rem; background-color: #f3f4f6; text-align: center; font-size: 0.875rem; }
+</style>

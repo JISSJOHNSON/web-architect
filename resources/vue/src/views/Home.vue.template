@@ -1,0 +1,19 @@
+<script setup{{LANG}}>
+{{SCRIPT_SETUP}}
+</script>
+<template>
+  <div class="home">
+    <h1 class="title">Welcome to {{PROJECT_NAME}}</h1>
+    <p class="subtitle">Modular Vue.js Architecture</p>
+{{TEMPLATE_CONTENT}}
+  </div>
+</template>
+<style scoped>
+.home { padding: 2rem; max-width: 56rem; margin: 0 auto; text-align: center; }
+.title { font-size: 2.25rem; font-weight: bold; margin-bottom: 1rem; color: #0284c7; }
+.subtitle { font-size: 1.125rem; color: #374151; margin-bottom: 2rem; }
+.card { padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; background: white; display: inline-block; }
+.btn { padding: 0.5rem 1rem; background-color: #0ea5e9; color: white; border-radius: 0.25rem; border: none; cursor: pointer; }
+.btn:hover { background-color: #0284c7; }
+.mb-4 { margin-bottom: 1rem; }
+</style>

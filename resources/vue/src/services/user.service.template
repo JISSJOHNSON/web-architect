@@ -1,0 +1,13 @@
+import apiClient from '@/api'
+
+const resource = 'api/user'
+
+export const UserService = {
+  getProfile() {
+    return apiClient.get(resource)
+  },
+  
+  updateProfile(data) {
+    return apiClient.put(resource, data)
+  }
+}

@@ -1,0 +1,44 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+import vue from 'rollup-plugin-vue';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import alias from '@rollup/plugin-alias';
+import postcss from 'rollup-plugin-postcss';
+import { terser } from 'rollup-plugin-terser';
+{{TS_IMPORT}}
+
+export default {
+  input: 'src/main.{{EXT}}',
+  output: {
+    format: 'esm',
+    dir: 'dist',
+    entryFileNames: 'bundle.js'
+  },
+  plugins: [
+    vue({
+      css: false // Extract CSS via postcss plugin
+    }),
+    alias({
+      entries: [
+        { find: '@', replacement: path.resolve(__dirname, 'src') }
+      ],
+      customResolver: resolve({
+        extensions: [{{RESOLVE_EXTENSIONS}}]
+      })
+    }),
+    resolve({
+      extensions: [{{RESOLVE_EXTENSIONS}}]
+    }),
+    commonjs(),
+    {{TS_PLUGIN}}
+    postcss({
+      extract: true,
+      minimize: true
+    }),
+    terser()
+  ]
+};

@@ -1,0 +1,14 @@
+import { STORAGE_KEYS } from '@/constants'
+
+export const authGuard = (to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem(STORAGE_KEYS.TOKEN)
+  const isAuthPage = to.path === '/login'
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else if (isAuthPage && isAuthenticated) {
+    next('/')
+  } else {
+    next()
+  }
+}

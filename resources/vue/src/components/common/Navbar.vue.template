@@ -1,0 +1,59 @@
+<script setup{{LANG}}>
+const navItems = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+]
+</script>
+
+<template>
+  <nav class="navbar">
+    <div class="container">
+      {{BRAND_LINK}}
+      <div class="nav-links">
+        {{NAV_LINKS}}
+      </div>
+    </div>
+  </nav>
+</template>
+
+<style scoped>
+.navbar {
+  padding: 1rem 2rem;
+  background: white;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary-600);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover, .router-link-active {
+  color: var(--color-primary-600);
+}
+</style>
